@@ -1,0 +1,116 @@
+Full version ("Short Summary" version below)
+
+-------------------------------
+
+OOP Principles in Practice (Java Examples)
+
+1. Encapsulation
+   - Definition: Hiding internal object data and providing controlled access
+   via methods.
+   - Implemented in class User.
+   - Private fields (id, email, password) prevent direct modification.
+   - Access provided through getters/setters.
+   - toString() excludes password to protect sensitive data.
+   - Demonstrates data security and single responsibility.
+
+2. Inheritance
+   - Definition: Reusing and extending existing code behavior from a base class.
+   - Implemented through AdminUser and RegularUser extending User.
+   - AdminUser adds a unique method printEmail(), which does not exist
+   in RegularUser and User.
+   - AdminUser adds a unique method printId(), which does not exist in RegularUser.
+   - Both inherit fields and methods from User but can override specific logic.
+   - Avoids code duplication and supports hierarchical organization.
+
+3. Polymorphism
+   - Definition: The ability of different classes to respond differently
+   to the same method call.
+   - Implemented via getRole() in AdminUser and RegularUser (method overriding).
+   - Demonstrated in MainOOP where User reference can point to any subclass.
+   - Also includes method overloading (printUserRole) to show compile-time
+   polymorphism.
+   - Provides flexibility and extensibility in system design.
+
+Summary:
+Encapsulation ensures controlled data access.
+Inheritance allows reuse and specialization.
+Polymorphism provides flexibility through dynamic behavior.
+Together, they form the foundation of object-oriented design.
+
+4.1. Abstraction (via Interface)
+
+Abstraction defines *what* behavior a class must provide,
+while hiding *how* it works internally.
+In this example, the interface Shape declares the abstract method calculateArea(),
+which every implementing class (like Circle) must define in its own way.
+This means the caller can work with Shape objects without knowing whether
+it’s a Circle or something else.
+
+Since Java 8, interfaces can also include default methods — methods
+with a predefined implementation.
+In our example, describe() is a default method that can be overridden
+in the class,
+while example() remains as defined in the interface.
+
+The abstraction principle here is shown through the method calculateArea():
+it forces each specific class to provide its own implementation,
+while the program interacts only with the abstract type Shape,
+not depending on the concrete class.
+
+4.2. Abstraction (via Abstract Class)
+
+The abstract class AbstractShape defines a shared structure (shapeType)
+and a constructor, so all subclasses inherit common state.
+It also provides a partial implementation — the describe() method.
+The abstract method calculateArea() forces each subclass
+(like CircleByAbstract) to implement its own version.
+This demonstrates abstraction through both shared logic and enforced behavior.
+
+Difference from Interface-Based Abstraction:
+- Interface defines what to do (behavior contract).
+- Abstract class defines what and partly how (shared logic + state).
+- Since Java 8, interfaces can have default methods,
+  but they cannot store instance fields or have constructors.
+
+--------------------
+inner class и static nested class
+
+An inner (non-static) class is tied to a specific instance of the outer class
+and can access all its fields and methods.
+A static nested class is not linked to any instance
+and can access only static members of the outer class.
+
+Why they are used:
+- To logically group helper classes that are only relevant to their outer class.
+- To hide implementation details and improve encapsulation.
+
+Object creation:
+- An inner class is created through an instance of the outer class:
+        InnerAndNestedClassesExamples outer = new InnerAndNestedClassesExamples();
+        InnerAndNestedClassesExamples.InnerClass inner = outer.new InnerClass();
+- A static nested class is created without an instance of the outer class:
+        InnerAndNestedClassesExamples.StaticNestedClass nested
+                = new InnerAndNestedClassesExamples.StaticNestedClass();
+
+--------------------
+
+Short Summary
+
+Encapsulation — hides implementation details (fields and methods).
+Access is given only through specific public methods when needed.
+
+Inheritance — builds a hierarchy from general to specific
+so child classes can reuse or change parent behavior.
+
+Polymorphism — one method name, different implementations.
+override changes parent behavior, overload changes method parameters.
+
+Abstraction — shows what a class should do, but hides how.
+    Interface — defines methods to be implemented;
+can include default methods (since Java 8).
+    Abstract class — works like an interface
+but can also include fields and a constructor.
+
+Inner and static nested classes:
+Both are nested classes: inner is tied to an instance,
+static nested only to static members.
