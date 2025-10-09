@@ -1,0 +1,6 @@
+Java 11 ensures stable parallel execution, improved memory management,
+and faster test runtime in CI/CD pipelines.
+Optimized for Docker containers and fully compatible with modern testing
+frameworks like Selenium 4 and RestAssured.
+
+-------------------------------------------
