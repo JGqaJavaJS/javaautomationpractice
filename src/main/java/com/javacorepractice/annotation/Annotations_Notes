@@ -1,0 +1,27 @@
+This module shows how a runtime annotation works in Java.
+The annotation @Run is just metadata. The runner (Runner) uses reflection
+to find methods marked with @Run and invokes them automatically
+— you don’t call those methods by name.
+
+How It Works
+
+@Run — is a custom annotation declared with @Retention(RUNTIME) and @Target(METHOD).
+This means it’s visible at runtime and can only be applied to methods.
+
+In DemoTasks, some methods are marked with @Run, and others are not.
+The method body does not change because of the annotation.
+
+Runner:
+
+creates an instance of DemoTasks;
+
+retrieves all methods using getDeclaredMethods();
+
+filters them by checking m.isAnnotationPresent(Run.class);
+
+invokes only the annotated ones with m.invoke(obj).
+
+The key idea: the annotation itself does not execute any code.
+It only tells another piece of code whether to apply or ignore a method.
+The reaction to the annotation is implemented in the runner —
+this is our mini logic, similar to how frameworks like TestNG work.

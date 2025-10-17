@@ -1,7 +1,7 @@
 package com.javacorepractice.solid;
 
 /*
- Additional example related to SOLID (see src/main/java/com/javacorepractice/solid/SOLID):
+ Additional example related to SOLID_Enum_Notes (see src/main/java/com/javacorepractice/solid/SOLID_Enum_Notes):
  Demonstrates enums with parameters, constructors, and methods.
  Each enum constant is a named instance (object) of the enum type,
  showing encapsulation and the Open/Closed Principle in action.
