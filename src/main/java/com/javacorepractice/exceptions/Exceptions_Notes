@@ -1,0 +1,81 @@
+📚 Exception Hierarchy & Usage (Quick Notes)
+
+🧱 Basic Structure:
+Throwable
+├── Exception
+│   ├── Checked exceptions
+│   └── Unchecked exceptions (RuntimeException)
+└── Error
+
+⚠️ Errors (JVM level)
+Subclasses of Error represent critical JVM failures that should not be caught.
+They usually mean the program cannot continue running.
+Examples:
+- OutOfMemoryError
+- StackOverflowError
+- VirtualMachineError
+Demo method: causeError()
+
+🚧 Checked Exceptions
+Inherit from Exception, but not from RuntimeException.
+Must be handled with try/catch or declared with throws.
+Examples:
+- IOException
+- SQLException
+- FileNotFoundException
+Demo method: handleCheckedException()
+
+⚡ Unchecked Exceptions
+Subclasses of RuntimeException.
+Do not need to be caught or declared.
+Usually indicate logic or validation errors.
+Occur at runtime — typically programmer mistakes.
+Examples:
+- NullPointerException
+- IllegalArgumentException
+- IndexOutOfBoundsException
+Demo method: handleUncheckedException()
+
+🧩 Try–Catch–Finally
+try {
+    // code that might fail
+} catch (ExceptionType e) {
+    // runs only if try fails
+} finally { // optional
+    // always runs
+}
+
+How It Works:
+- Code in try runs line by line.
+- If any line throws an exception, the rest of the try block is skipped.
+- Control jumps to the first matching catch.
+- Multiple catch blocks can handle different exceptions.
+- Order matters: from specific → general (child → parent).
+- If no exception — catch is ignored.
+- finally runs every time (except on JVM crash or System.exit()).
+Demo method: exceptionWithFinally()
+
+💥 throw & throws
+- throw — creates and throws an exception inside a method.
+  Used to manually signal an error and interrupt execution.
+  Demo method: throwMathException()
+- throws — added to a method signature to declare
+  that this method may throw specific exceptions.
+  Caller must handle or redeclare it.
+  Demo method: throwsMathException()
+
+🔁 Re-throwing
+Catches, logs, and rethrows the same exception for higher-level handling.
+Demo method: exceptionWithThrow()
+
+📘 Summary:
+throw = action (actually throws) — throwMathException()
+throws = declaration (warns that it can throw) — throwsMathException()
+rethrow = passes caught exception upward — exceptionWithThrow()
+finally = always executes (cleanup) — exceptionWithFinally()
+Error = JVM-level failure — causeError()
+Checked exceptions = must be handled with try/catch or declared with throws
+Unchecked exceptions = occur at runtime, no need to declare or catch
+try = runs code that might fail
+catch = runs only if try fails
+finally = always runs (used for cleanup)

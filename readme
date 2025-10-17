@@ -10,3 +10,4 @@ frameworks like Selenium 4 and RestAssured.
 1. src/main/java/com/javacorepractice/oop
 2. src/main/java/com/javacorepractice/solid
 3. src/main/java/com/javacorepractice/annotation
+4. src/main/java/com/javacorepractice/exceptions
