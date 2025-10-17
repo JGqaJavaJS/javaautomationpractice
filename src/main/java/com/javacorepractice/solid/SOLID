@@ -1,0 +1,22 @@
+This SOLID demo project illustrates all five principles through separate classes —
+each principle is represented by its own class for clarity and isolation.
+
+To make examples compact yet expressive, the code uses nested and inner classes,
+as well as abstract classes, interfaces, encapsulation, polymorphism, and abstraction —
+the key concepts of object-oriented programming (OOP).
+
+Additionally, the examples show that in Java,
+a class can extend only one parent class but can implement multiple interfaces,
+demonstrating how inheritance and interface-based design work together
+to support clean architecture and SOLID principles.
+
+------------------------------------
+
+Since the O_OpenClosed class already demonstrated an enum with behavior through overridden methods,
+an additional example — EnumWithParamsExample — was added to show a more advanced use case of
+enums with parameters, constructors, and instance methods.
+
+Enums in Java perfectly illustrate several SOLID ideas:
+they support encapsulation (storing related data and logic together),
+open/closed principle (new enum constants can extend functionality without modifying existing code),
+and single responsibility (each constant defines its own, isolated behavior).

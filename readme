@@ -8,3 +8,4 @@ Optimized for Docker containers and fully compatible with modern testing
 frameworks like Selenium 4 and RestAssured.
 -------------------------------------------
 1. src/main/java/com/javacorepractice/oop
+2. src/main/java/com/javacorepractice/solid
