@@ -13,3 +13,4 @@ frameworks like Selenium 4 and RestAssured.
 4. src/main/java/com/javacorepractice/exceptions
 5. src/main/java/com/javacorepractice/foundation/strings
 6. src/main/java/com/javacorepractice/foundation/arrays
+7. src/main/java/com/javacorepractice/foundation/list
