@@ -15,3 +15,4 @@ frameworks like Selenium 4 and RestAssured.
 6. src/main/java/com/javacorepractice/foundation/arrays
 7. src/main/java/com/javacorepractice/foundation/list
 8. src/main/java/com/javacorepractice/foundation/LambdaExamples.java
+9. src/main/java/com/javacorepractice/foundation/generic
