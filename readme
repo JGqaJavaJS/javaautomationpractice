@@ -18,3 +18,4 @@ frameworks like Selenium 4 and RestAssured.
 9. src/main/java/com/javacorepractice/foundation/generic
 10. src/main/java/com/javacorepractice/foundation/HashingBasics.java
 11. src/main/java/com/javacorepractice/foundation/MapExamples.java
+12. src/main/java/com/javacorepractice/foundation/SetExamples.java
