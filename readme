@@ -22,4 +22,4 @@ frameworks like Selenium 4 and RestAssured.
 13. src/main/java/com/javacorepractice/foundation/QueueExamples.java
 14. src/main/java/com/javacorepractice/foundation/StreamExamples.java
 15. src/main/java/com/javacorepractice/DemoUnitTestService.java
-& src/test/java/DemoUnitTestServiceTest.java
+& src/test/java/unittests/DemoUnitTestServiceTest.java

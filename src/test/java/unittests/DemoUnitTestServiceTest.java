@@ -1,3 +1,5 @@
+package unittests;
+
 import com.javacorepractice.DemoUnitTestService;
 import org.testng.Assert;
 import org.testng.annotations.Test;
