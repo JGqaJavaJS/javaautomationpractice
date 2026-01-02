@@ -23,3 +23,6 @@ frameworks like Selenium 4 and RestAssured.
 14. src/main/java/com/javacorepractice/foundation/StreamExamples.java
 15. src/main/java/com/javacorepractice/DemoUnitTestService.java
 & src/test/java/unittests/DemoUnitTestServiceTest.java
+
+SELENIUM
+1. add dependencies in pom.xml and src/test/resources/testng.xml example

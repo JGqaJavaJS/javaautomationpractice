@@ -8,19 +8,237 @@
     <artifactId>javaautomationpractice</artifactId>
     <version>1.0-SNAPSHOT</version>
 
+    <!-- Project default properties.
+     These values define default behavior for Maven runs (mvn test):
+     - default TestNG suite and groups
+     - Allure weaving version
+     - browser execution mode (headless)
+     Any of these can be overridden via command line using -Dproperty=value.
+     Additional defaults (timeouts, environment, browser type, base URL, etc.)
+     can be added here as the project grows.
+    -->
     <properties>
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+
+        <!-- Default TestNG suite XML used by mvn test -->
+        <suiteXmlFile>src/test/resources/testng.xml</suiteXmlFile>
+
+        <!-- Default TestNG groups used by mvn test (-Dsurefire.groups=regression overrides it) -->
+        <surefire.groups>smoke</surefire.groups>
+
+        <!-- AspectJ version for Allure @Step weaving -->
+        <aspectj.version>1.9.22.1</aspectj.version>
+
+        <!-- Default browser mode for local runs (CI usually uses -Dheadless=true) -->
+        <headless>false</headless>
     </properties>
 
+    <!-- Build configuration.
+     Defines how the project is compiled, tested, and executed by Maven.
+     This section configures plugins for test execution, reporting,
+     code generation, and CI/CD integration.
+    -->
+    <build>
+        <plugins>
+
+            <!-- Maven Surefire plugin configuration.
+             Controls how tests are executed:
+             - runs TestNG tests
+             - supports TestNG XML suites and test groups
+             - passes runtime parameters (groups, headless mode)
+             - integrates Allure reporting via AspectJ weaving
+             - fails build if no tests are found (CI safety)
+            -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-surefire-plugin</artifactId>
+                <version>3.2.5</version>
+                <configuration>
+
+                    <!-- Fail build if no tests were found (important for CI) -->
+                    <failIfNoTests>true</failIfNoTests>
+
+                    <!-- Explicitly use TestNG provider -->
+                    <testNGArtifactName>org.testng:testng</testNGArtifactName>
+
+                    <!-- Enable suiteXmlFiles after src/test/resources/testng.xml is created -->
+                    <suiteXmlFiles>
+                        <suiteXmlFile>${suiteXmlFile}</suiteXmlFile>
+                    </suiteXmlFiles>
+
+                    <!-- Pass system properties to tests -->
+                    <systemPropertyVariables>
+                        <!-- TestNG groups (override by -Dsurefire.groups=...) -->
+                        <groups>${surefire.groups}</groups>
+
+                        <!-- Allure results output (CI-friendly) -->
+                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+
+                        <!-- Browser headless mode: true for CI, false for local runs -->
+                        <headless>${headless}</headless>
+                    </systemPropertyVariables>
+
+                    <!-- Needed for Allure @Step interception -->
+                    <argLine>
+                        -javaagent:"${settings.localRepository}/org/aspectj/aspectjweaver/${aspectj.version}/aspectjweaver-${aspectj.version}.jar"
+                    </argLine>
+                </configuration>
+            </plugin>
+
+            <!-- Allure Maven plugin (optional, but convenient for report generation) -->
+            <plugin>
+                <groupId>io.qameta.allure</groupId>
+                <artifactId>allure-maven</artifactId>
+                <version>2.17.0</version>
+            </plugin>
+
+            <!-- Explicit Lombok processing to ensure consistent builds across OS and CI -->
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>3.13.0</version>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>1.18.30</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
+            </plugin>
+
+        </plugins>
+    </build>
+
+    <!-- Project dependencies:
+     all external libraries used in the project are defined here.
+     Libraries and versions can be found and selected at https://mvnrepository.com -->
+
     <dependencies>
+        <!-- Test framework -->
         <dependency>
             <groupId>org.testng</groupId>
             <artifactId>testng</artifactId>
             <version>7.8.0</version>
             <scope>test</scope>
         </dependency>
+
+        <!-- Browser automation -->
+        <dependency>
+            <groupId>org.seleniumhq.selenium</groupId>
+            <artifactId>selenium-java</artifactId>
+            <version>4.34.0</version>
+        </dependency>
+
+        <!-- Driver binaries management (ChromeDriver/GeckoDriver, etc.) -->
+        <dependency>
+            <groupId>io.github.bonigarcia</groupId>
+            <artifactId>webdrivermanager</artifactId>
+            <version>6.1.0</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Reporting -->
+        <dependency>
+            <groupId>io.qameta.allure</groupId>
+            <artifactId>allure-testng</artifactId>
+            <version>2.29.1</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- Allure weaving runtime (used by surefire javaagent) -->
+        <dependency>
+            <groupId>org.aspectj</groupId>
+            <artifactId>aspectjweaver</artifactId>
+            <version>${aspectj.version}</version>
+            <scope>runtime</scope>
+        </dependency>
+
+        <!-- Logging (SLF4J API + Logback implementation) -->
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>2.0.17</version>
+        </dependency>
+        <dependency>
+            <groupId>ch.qos.logback</groupId>
+            <artifactId>logback-classic</artifactId>
+            <version>1.5.18</version>
+        </dependency>
+
+        <!-- CSV for DataProvider -->
+        <dependency>
+            <groupId>com.opencsv</groupId>
+            <artifactId>opencsv</artifactId>
+            <version>5.9</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- REST API testing -->
+        <dependency>
+            <groupId>io.rest-assured</groupId>
+            <artifactId>rest-assured</artifactId>
+            <version>5.5.6</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- JSON serialization/deserialization (explicit, predictable behavior) -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>2.17.2</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- DTO boilerplate (getters/setters/builders) -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>1.18.30</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- Generate Test Data -->
+        <dependency>
+            <groupId>com.github.javafaker</groupId>
+            <artifactId>javafaker</artifactId>
+            <version>1.0.2</version>
+            <scope>test</scope>
+        </dependency>
+
     </dependencies>
+
+    <!--
+     Profiles templates for future project scaling.
+     Each profile can define:
+     - its own TestNG suite XML file
+     - its own group of tests to run
+     This allows running different test sets (login, regression, etc.).
+    -->
+
+    <!--
+    <profiles>
+        <profile>
+            <id>login</id>
+            <properties>
+                <suiteXmlFile>src/test/resources/testng-login.xml</suiteXmlFile>
+                <surefire.groups>login</surefire.groups>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>reg</id>
+            <properties>
+                <suiteXmlFile>src/test/resources/testng-regression.xml</suiteXmlFile>
+                <surefire.groups>regression</surefire.groups>
+            </properties>
+        </profile>
+    </profiles>
+    -->
 
 </project>
