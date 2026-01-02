@@ -20,3 +20,4 @@ frameworks like Selenium 4 and RestAssured.
 11. src/main/java/com/javacorepractice/foundation/MapExamples.java
 12. src/main/java/com/javacorepractice/foundation/SetExamples.java
 13. src/main/java/com/javacorepractice/foundation/QueueExamples.java
+14. src/main/java/com/javacorepractice/foundation/StreamExamples.java
