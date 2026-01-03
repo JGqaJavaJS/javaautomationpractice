@@ -2,12 +2,12 @@
     <test name="Tests">
         <groups>
             <run>
-                <include name="${groups}"/>
+                <include name="smoke"/>
             </run>
         </groups>
 
-<!--        <classes>-->
-<!--            <class name="tests.DemoTest"/>-->
-<!--        </classes>-->
+        <classes>
+            <class name="seleniumtests.tests.TestsToDelete"/>
+        </classes>
     </test>
 </suite>

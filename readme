@@ -26,3 +26,12 @@ frameworks like Selenium 4 and RestAssured.
 
 SELENIUM
 1. add dependencies in pom.xml and src/test/resources/testng.xml example
+2. UI tests use https://the-internet.herokuapp.com;
+browser setup is implemented in
+src/test/java/seleniumtests/browserfactory/BrowserFactory.java,
+and a temporary test for verifying test execution is located at
+src/test/java/seleniumtests/tests/TestsToDelete.java.
+and test running with
+mvn test -Dbrowser=firefox -Dheadless=true
+in src/test/resources/testng.xml
+
